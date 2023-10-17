@@ -1,9 +1,9 @@
 // audio
 let bgMusic = new Audio("assets/music.mp3");
-function playBackgroundMusic() {
-  bgMusic.play();
-}
-window.addEventListener('load', playBackgroundMusic);
+// function playBackgroundMusic() {
+//   bgMusic.play();
+// }
+// window.addEventListener('load', playBackgroundMusic);
 
 let clickMusic = new Audio("assets/ting.mp3");
 let goMusic = new Audio("assets/gameover.mp3");
@@ -22,16 +22,16 @@ const checkWin = () => {
   //console.log(boxText)
 
   let wins = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8], // horizontal possibilities
+    [0, 1, 2, 32, -25, 90], // here 3=x 4=y and 5=rotate deg
+    [3, 4, 5, 32, 0, 90],
+    [6, 7, 8, 32, 25, 90], // horizontal possibilities
 
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8], // vertical possibilities
+    [0, 3, 6, 10, 0, 0],
+    [1, 4, 7, 31, 0, 0],
+    [2, 5, 8, 52, 0, 0], // vertical possibilities
 
-    [2, 4, 6],
-    [0, 4, 8], // cross possibilities
+    [2, 4, 6, 30, 0, 44],
+    [0, 4, 8, 30, 0, -44], // cross possibilities
   ];
 
   wins.forEach( (e) => {
@@ -42,6 +42,9 @@ const checkWin = () => {
     ) {
       document.querySelector(".info").innerText = boxText[e[0]].innerText + " : YoU WON !!";
       gameOver = true;
+
+      document.querySelector(".line").classList.remove("hidden");
+      document.querySelector(".line").style.transform = `translate(${e[3]}vh, ${e[4]}vh) rotate(${e[5]}deg)`;
     }
   });
 };
@@ -89,4 +92,5 @@ reset.addEventListener('click', ()=>{
     gameOver = false;
     document.getElementsByClassName("info")[0].innerText = "Turn for : " + turn;
     document.getElementById("winImg").classList.add("hidden");
+    document.querySelector(".line").classList.add("hidden");
 })
